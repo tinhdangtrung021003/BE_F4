@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="javaOracleWebix.mapper.RoleMapper">
+
+		<resultMap id="roleResultMap"
+		type="javaOracleWebix.entity.Role">
+		<result column="ROLEID" property="roLeId" />
+		<result column="ROLENAME" property="roLeName" />
+		<result column="ISUSE" property="isUse" />
+		<result column="IMAGE" property="image" />
+		<result column="DESCRIPTION" property="desCription" />
+		
+	</resultMap>
+
+
+<select id="getAllRoles" resultMap="roleResultMap">
+				 SELECT rl.ROLEID
+                ,rl.ROLENAME
+                ,rl.ISUSE
+                ,rl.IMAGE
+                ,rl.DESCRIPTION
+ 				FROM system.f4_inv_hr_role rl
+				 WHERE 1=1
+	</select>
+
+	<insert id="saveRole" >
+		 INSERT INTO system.f4_inv_hr_role(ROLEID
+                                             ,ROLENAME
+                                             ,ISUSE
+                                             ,IMAGE
+                                             ,DESCRIPTION)
+                                           VALUES
+                                             (
+                                             #{roLeId}
+                                            ,#{roLeName}
+                                            ,#{isUse}
+                                            ,#{image}
+                                            ,#{desCription}
+                                             )
+	</insert>
+	
+	<insert id="saveRoleDetail" >
+		 INSERT INTO system.f4_inv_hr_role(ROLEID
+                                             ,ROLENAME
+                                             ,ISUSE
+                                             ,IMAGE
+                                             ,DESCRIPTION)
+                                           VALUES
+                                             (
+                                             #{roLeId}
+                                            ,#{roLeName}
+                                            ,#{isUse}
+                                            ,#{image}
+                                            ,#{desCription}
+                                             )
+	</insert>
+	
+	<select id="getNewRoleId" resultType="Integer">
+		 select Max(roleid)+ 1 ROLEID  from system.f4_inv_hr_role
+	</select>
+	
+	<update id="updateRole">
+	
+	UPDATE system.F4_INV_HR_ROLE
+	SET ROLENAME =#{roLeName}
+	,ISUSE = #{isUse}
+	,IMAGE=#{image}
+	,DESCRIPTION = #{desCription}
+	WHERE ROLEID = #{roLeId}
+	
+	</update>
+	
+	
+</mapper>
